@@ -8,7 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class RepliesController extends Controller
 {
-    public function store(Thread $thread){
+    public function store($channelId,Thread $thread){
+   
+        $this->validate(request(),[
+            'reply' => 'required'
+        ]);
+       
         $thread->addReply([
             'body' => request('reply'),
             'user_id' => Auth::user()->id

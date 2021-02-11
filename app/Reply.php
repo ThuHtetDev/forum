@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 class Reply extends Model
 {
     protected $guarded = [];
+
+    protected $with = ['owner','favorites'];
     
     public function thread(){
         return $this->belongsTo(Thread::class);

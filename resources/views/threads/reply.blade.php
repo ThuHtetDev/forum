@@ -1,12 +1,12 @@
 <li>
-    <p>From <a href="#">{{$reply->owner->name}}</a> said:</p>
+    <p>From <a href="{{route('user.profile',['user'=>$reply->owner->name])}}">{{$reply->owner->name}}</a> said:</p>
     <p>{{$reply->body}}</p>
     <p>{{$reply->created_at->diffForHumans()}}</p>
     <p>
         <form action="{{route('reply.favorite',['reply' => $reply->id ]) }}" method="POST">
             @csrf
             <button type="submit" class="btn btn-primary">
-                {{$reply->favorites->count()}} {{\Str::plural('Like',$reply->favorites->count())}}
+                {{$reply->favorites_count}} {{\Str::plural('Like',$reply->favorites_count)}}
             </button>
         </form>
     </p>

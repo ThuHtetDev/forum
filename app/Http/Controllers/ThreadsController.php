@@ -21,7 +21,7 @@ class ThreadsController extends Controller
     }
 
     private function getThreads($channel,$filters){
-        $threads = Thread::with('channel')->latest()->filter($filters); // add edger loading for channel relationship
+        $threads = Thread::latest()->filter($filters); // add edger loading for channel relationship
         if($channel->exists){
             // $channelId = Channel::where('slug',$channel)->first()->id;
             // $threads = $channel->threads()->latest();
@@ -57,6 +57,13 @@ class ThreadsController extends Controller
        ]);
 
        return redirect($thread->path());
+    }
+
+    public function destroy(Thread $thread){
+        $this->authorize('updateThreadPermission',$thread);
+        $thread->replies()->delete();
+        $thread->delete();
+        return redirect('/threads');
     }
 
 

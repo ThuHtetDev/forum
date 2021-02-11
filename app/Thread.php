@@ -11,12 +11,27 @@ class Thread extends Model
 {
     protected $guarded = [];
 
+    protected $with = ['channel'];
+
+    protected static function boot(){
+        parent::boot();
+
+        // Edger Loading add in Global
+        // this can be included creator in Thread
+        // can also be remove by withoutGlobalScopes()
+        static::addGlobalScope('creator',function($builder){
+            $builder->with('creator');
+        });
+    }
+
     public function path(){
         return "/threads/{$this->channel->slug}/{$this->id}";
     }
 
     public function replies(){
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class)
+                    ->withCount('favorites')
+                    ->with('owner');
     }
 
     public function creator(){

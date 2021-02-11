@@ -9,7 +9,7 @@
                 <div class="card-body">
                     {{$thread->body}}
                 </div>
-                <div class="card-footer">Posted by <a href="#">{{$thread->creator->name}}</a> </div>
+                <div class="card-footer">Posted by <a href="{{route('user.profile',['user'=>$thread->creator->name])}}">{{$thread->creator->name}}</a> </div>
             </div>
                 <ul class="m-5">
                     @foreach($replies as $reply)
@@ -45,9 +45,18 @@
                 <span class="list-group-item list-group-item-action active">
                     Thread Info
                 </span>
-                <span class="list-group-item list-group-item-action"> Published By <a href="#">{{$thread->creator->name}}</a></span>
+                <span class="list-group-item list-group-item-action"> Published By <a href="{{route('user.profile',['user'=>$thread->creator->name])}}">{{$thread->creator->name}}</a></span>
                 <span class="list-group-item list-group-item-action"> Published at {{$thread->created_at->diffForHumans()}}</span>
                 <span class="list-group-item list-group-item-action"> {{$thread->replies->count()}} {{ \Str::plural('reply',$thread->replies->count()) }} to this thread</span>
+                @can('updateThreadPermission',$thread)
+                    <span class="list-group-item list-group-item-action">
+                        <form action="{{route('thread.destroy',['thread'=> $thread])}}" method="post">
+                            @csrf 
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-link">Delete This Thread</button>
+                        </form>
+                    </span>
+                @endcan
             </div>
         <div>
     </div>

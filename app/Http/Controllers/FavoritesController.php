@@ -12,7 +12,11 @@ class FavoritesController extends Controller
     }
 
     public function store(Reply $reply,Request $request){
-        $reply->favorite($reply);
+        $isFav = $reply->favorite($reply);
+
+        if(request()->expectsJson()){
+            return response()->json($isFav,200);
+        }
         return back();
     }
 }

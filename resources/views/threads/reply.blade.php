@@ -15,25 +15,16 @@
         </div>
         <div style="display:flex;">
             <div class="mr-4">
-                <form action="{{route('reply.favorite',['reply' => $reply->id ]) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        {{$reply->favorites_count}} {{\Str::plural('Like',$reply->favorites_count)}}
-                    </button>
-                </form>
-            </div>
-            <div class="mr-4">
-                <button class="btn btn-info btn-sm" @click="editing = true">Edit This Reply</button>
+                <favorite v-bind:reply="{{$reply}}"></favorite>
             </div>
             @can('updateReplyPermission',$reply)
+                <div class="mr-4">
+                    <button class="btn btn-info btn-sm" @click="editing = true">Edit This Reply</button>
+                </div>
                 <div>
-                    <form action="{{route('reply.destory',['reply'=>$reply])}}" method="POST">
-                        @method('delete')
-                        @csrf 
-                        <button type="submit" class="btn btn-danger btn-sm">
+                    <button class="btn btn-danger btn-sm" @click="deleteReply()">
                             Delete This Reply
-                        </button>
-                    </form>
+                    </button>
                 </div>
             @endcan
         </div>

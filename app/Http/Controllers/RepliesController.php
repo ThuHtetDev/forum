@@ -25,6 +25,9 @@ class RepliesController extends Controller
     public function destory(Reply $reply){
         $this->authorize('updateReplyPermission',$reply);
         $reply->delete();
+        if(request()->expectsJson()){
+            return response()->json('success',200);
+        }
         return back()->with('flash','Your reply has been deleted');
     }
 

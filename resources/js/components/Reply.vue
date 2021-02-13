@@ -1,8 +1,10 @@
 <script>
+    import Favorite from './Favorite.vue';
     export default {
         props: [
             'reply'
         ],
+        components: {Favorite},
         data:function(){
             return {
                 editing: false,
@@ -27,6 +29,12 @@
             cancel(){
                 this.body = this.$props.reply.body;
                 this.editing = false;
+            },
+            deleteReply(){
+                axios.delete('/replies/'+this.$props.reply.id);
+                $(this.$el).fadeOut(300,function(){
+                        flash('Your Reply has been delete');
+                });
             }
         }
     }

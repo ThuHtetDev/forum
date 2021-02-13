@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Reply;
 use App\Thread;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,18 @@ class RepliesController extends Controller
             'body' => request('reply'),
             'user_id' => Auth::user()->id
         ]);
-        return back();
+        return back()->with('flash','Your Reply has been posted');
+    }
+
+    public function destory(Reply $reply){
+        $this->authorize('updateReplyPermission',$reply);
+        $reply->delete();
+        return back()->with('flash','Your reply has been deleted');
+    }
+
+    public function update(Reply $reply,Request $request){
+        $reply->body = $request->body;
+        $reply->update();
+        return 'success';
     }
 }

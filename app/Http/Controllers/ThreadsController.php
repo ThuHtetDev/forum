@@ -56,7 +56,8 @@ class ThreadsController extends Controller
            'body' => $request->body
        ]);
 
-       return redirect($thread->path());
+       return redirect($thread->path())
+                ->with('flash','New thread has been created');
     }
 
     public function destroy(Thread $thread){

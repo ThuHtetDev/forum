@@ -1,5 +1,5 @@
 window._ = require('lodash');
-
+window.Vue = require('vue');
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -39,3 +39,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+window.events = new Vue(); // You can use now for window.events.$emit // $on
+
+window.flash = function(message){
+    //flash('this is message')
+    window.events.$emit('flash',message);
+}; 

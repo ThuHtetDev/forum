@@ -25,6 +25,8 @@ Route::post('/threads', 'ThreadsController@store')->name('thread.store');
 Route::delete('/threads/{thread}', 'ThreadsController@destroy')->name('thread.destroy');
 
 Route::post('/replies/{reply}/favorite','FavoritesController@store')->name('reply.favorite');
+Route::delete('/replies/{reply}','RepliesController@destory')->name('reply.destory');
+Route::patch('/replies/{reply}','RepliesController@update')->name('reply.update');
 
 Route::get('profiles/{user}','ProfileController@show')->name('user.profile');
 

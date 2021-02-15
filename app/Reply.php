@@ -34,6 +34,10 @@ class Reply extends Model
         return false;
     }
 
+    public function path(){
+        return $this->thread->path().'#reply-'.$this->id;
+    }
+
     public function getIsFavoritedAttribute(){
         return $this->isFavorited();
     }

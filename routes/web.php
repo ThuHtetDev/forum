@@ -28,10 +28,12 @@ Route::post('/replies/{reply}/favorite','FavoritesController@store')->name('repl
 Route::delete('/replies/{reply}','RepliesController@destory')->name('reply.destory');
 Route::patch('/replies/{reply}','RepliesController@update')->name('reply.update');
 
-Route::get('profiles/{user}','ProfileController@show')->name('user.profile');
-
 Route::post('/threads/{channel}/{thread}/subscriptions','ThreadSubscriptionController@store')->name('thread.subcribe');
 Route::delete('/threads/{channel}/{thread}/subscriptions','ThreadSubscriptionController@destroy')->name('thread.delete');
+
+Route::get('profiles/{user}','ProfileController@show')->name('user.profile');
+Route::get('profiles/{user}/notifications','UserNotificationController@index')->name('notification.index');
+Route::delete('profiles/{user}/notifications/{notification}','UserNotificationController@destory')->name('notification.destory');
 
 Auth::routes();
 

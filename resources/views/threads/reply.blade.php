@@ -1,5 +1,5 @@
 <reply v-bind:reply="{{$reply}}" inline-template v-cloak>
-    <li>
+    <li id="reply-{{$reply->id}}">
         <p>
             <a href="{{route('user.profile',['user'=>$reply->owner->name])}}">
                 {{$reply->owner->name}}

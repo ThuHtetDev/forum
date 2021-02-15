@@ -42,11 +42,28 @@ class Thread extends Model
     }
 
     public function addReply($data){
+        //! Create Reply from thread
         $reply = $this->replies()->create($data);
 
-        foreach($this->subscriptions as $subscription){
-            $subscription->user->notify(new ThreadWasUpdated($this,$reply));
-        }
+        //! If Reply cames to thread, Send/Create Notifications to that thread's subscribers
+        $this->subscriptions->filter(function ($sub) use ($reply){
+            // reply user cannot be auth user
+            return $sub->user_id != $reply->user_id;
+        })
+        ->each(function ($sub) use ($reply){
+            $sub->notify($reply);
+        });
+
+        //! Other ways noted
+        // ->each(function ($sub) use ($reply){
+        //     $sub->user->notify(new ThreadWasUpdated($this,$reply));
+        // });
+
+        // foreach($this->subscriptions as $subscription){
+        //     if($subscription->user_id != $reply->user_id){
+        //         $subscription->user->notify(new ThreadWasUpdated($this,$reply));
+        //     }
+        // }
 
         return $reply;
     }
@@ -57,6 +74,10 @@ class Thread extends Model
 
     public function scopeFilter($query,$filters){
         return $filters->apply($query);
+    }
+
+    public function subscriptions(){
+        return $this->hasMany(ThreadSubscription::class);
     }
 
     public function subscribed($userId = null)
@@ -75,7 +96,4 @@ class Thread extends Model
         return $this->subscriptions()->where('user_id',\Auth::user()->id)->exists();
     }
 
-    public function subscriptions(){
-        return $this->hasMany(ThreadSubscription::class);
-    }
 }

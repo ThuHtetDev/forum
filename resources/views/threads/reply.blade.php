@@ -1,6 +1,10 @@
 <reply v-bind:reply="{{$reply}}" inline-template v-cloak>
     <li>
-        <p>From <a href="{{route('user.profile',['user'=>$reply->owner->name])}}">{{$reply->owner->name}}</a> said:</p>
+        <p>
+            <a href="{{route('user.profile',['user'=>$reply->owner->name])}}">
+                {{$reply->owner->name}}
+            </a> said: <span v-text="ago"></span>..
+         </p>
         <div class="mb-2">
             <div v-if="editing">
                 <div class="form-group">
@@ -14,9 +18,11 @@
             <div v-else v-text="body"> </div>
         </div>
         <div style="display:flex;">
-            <div class="mr-4">
-                <favorite v-bind:reply="{{$reply}}"></favorite>
-            </div>
+            @if(\Auth::check())
+                <div class="mr-4">
+                    <favorite v-bind:reply="{{$reply}}"></favorite>
+                </div>
+            @endif
             @can('updateReplyPermission',$reply)
                 <div class="mr-4">
                     <button class="btn btn-info btn-sm" @click="editing = true">Edit This Reply</button>

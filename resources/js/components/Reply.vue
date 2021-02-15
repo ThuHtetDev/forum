@@ -1,5 +1,6 @@
 <script>
     import Favorite from './Favorite.vue';
+    import moment from 'moment';
     export default {
         props: [
             'reply'
@@ -11,6 +12,11 @@
                 body: this.$props.reply.body
             }
         },
+        computed:{
+            ago(){
+                return moment(this.$props.reply.created_at).fromNow();
+            }
+        },
         methods:{
             update(){
                 if(this.body == '') return;
@@ -20,7 +26,6 @@
                 })
                .then(function( response ){
                     // Handle success
-                    location.reload();
                     flash('Your Reply has been updated');
                 });
 

@@ -28,7 +28,10 @@ class Reply extends Model
     }
 
     public function isFavorited(){
-        return !! $this->favorites->where('user_id',\Auth::user()->id)->count();
+        if(\Auth::check()){
+            return !! $this->favorites->where('user_id',\Auth::user()->id)->count();
+        }
+        return false;
     }
 
     public function getIsFavoritedAttribute(){

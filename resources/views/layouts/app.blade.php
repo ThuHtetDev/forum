@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="sign-in" content="{{\Auth::check()}}" >
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -18,6 +19,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script>
+        window.App = {!!
+            json_encode([
+                'csrfToken' => csrf_token(),
+                'signIn' => Auth::check()
+            ])
+        !!};
+    </script>
     <style>
         [v-cloak] { 
             display:none;

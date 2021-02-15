@@ -4,7 +4,6 @@
             <span v-if="isFavorited"><i class="fas fa-heart fa-2x"  style="color:red"></i></span>
             <span v-else><i class="far fa-heart fa-2x"  style="color:red"></i></span>
         </div>
-            
 </template>
 
 <script>

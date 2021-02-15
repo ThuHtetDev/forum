@@ -30,6 +30,9 @@ Route::patch('/replies/{reply}','RepliesController@update')->name('reply.update'
 
 Route::get('profiles/{user}','ProfileController@show')->name('user.profile');
 
+Route::post('/threads/{channel}/{thread}/subscriptions','ThreadSubscriptionController@store')->name('thread.subcribe');
+Route::delete('/threads/{channel}/{thread}/subscriptions','ThreadSubscriptionController@destroy')->name('thread.delete');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

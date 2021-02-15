@@ -19,6 +19,11 @@ class RepliesController extends Controller
             'body' => request('reply'),
             'user_id' => Auth::user()->id
         ]);
+
+        if(request()->expectsJson()){
+            return response()->json('success',201);
+        }
+
         return back()->with('flash','Your Reply has been posted');
     }
 

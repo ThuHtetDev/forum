@@ -36,7 +36,7 @@
                         </form>
                     </div>
                 @else
-                    Please <a href="{{route('login')}}">Signin</a> to post this reply.
+                    Please <a href="{{route('login')}}">Sign In</a> to post this reply.
                 @endif
 
                 <!-- <new-reply></new-reply> -->

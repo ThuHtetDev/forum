@@ -96,4 +96,10 @@ class Thread extends Model
         return $this->subscriptions()->where('user_id',\Auth::user()->id)->exists();
     }
 
+    public function hasVisitedFor(){
+        $key = sprintf("users.%s.visits.%s",\Auth::user()->id,$this->id);
+        
+        return $this->updated_at > cache($key);
+    }
+
 }

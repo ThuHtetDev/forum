@@ -2037,27 +2037,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['message'],
   data: function data() {
     return {
       body: '',
+      level: 'success',
       show: false
     };
   },
   created: function created() {
     var _this = this;
 
-    if (this.message) this.flash(this.message);
-    window.events.$on('flash', function (message) {
-      _this.flash(message);
+    if (this.message) {
+      var data = {
+        message: this.message,
+        level: 'success'
+      };
+      this.flash(data);
+    }
+
+    window.events.$on('flash', function (data) {
+      _this.flash(data);
     });
   },
   methods: {
-    flash: function flash(message) {
-      this.body = message;
+    flash: function flash(data) {
+      this.body = data.message;
+      this.level = data.level;
       this.show = true;
       this.hide();
     },
@@ -2246,6 +2253,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -60257,20 +60266,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      directives: [
-        { name: "show", rawName: "v-show", value: _vm.show, expression: "show" }
-      ],
-      staticClass: "alert alert-success fade show alert-flash",
-      attrs: { role: "alert" }
-    },
-    [
-      _c("strong", [_vm._v("Success")]),
-      _vm._v("\n    " + _vm._s(_vm.body) + "\n")
-    ]
-  )
+  return _c("div", {
+    directives: [
+      { name: "show", rawName: "v-show", value: _vm.show, expression: "show" }
+    ],
+    staticClass: "alert fade show alert-flash",
+    class: " alert-" + _vm.level,
+    attrs: { role: "alert" },
+    domProps: { textContent: _vm._s(_vm.body) }
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -60494,7 +60498,7 @@ var staticRenderFns = [
             "aria-hidden": "true"
           }
         }),
-        _vm._v(" Notifications\n      ")
+        _vm._v(" Notifications\n              ")
       ]
     )
   }
@@ -72763,8 +72767,12 @@ window.axios.defaults.headers.common = {
 };
 
 window.flash = function (message) {
+  var level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
   //flash('this is message')
-  window.events.$emit('flash', message);
+  window.events.$emit('flash', {
+    message: message,
+    level: level
+  });
 };
 
 /***/ }),

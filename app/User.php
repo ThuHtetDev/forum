@@ -45,4 +45,8 @@ class User extends Authenticatable
     public function threads(){
         return $this->hasMany(Thread::class);
     }
+
+    // public function visitUserCacheKey($thread){
+    //     return sprintf("users.%s.visits.%s",\Auth::user()->id,$thread->id);
+    // }
 }

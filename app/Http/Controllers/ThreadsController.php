@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Thread;
 use App\Channel;
-use App\Filters\ThreadFilters;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Filters\ThreadFilters;
 use Illuminate\Support\Facades\Auth;
 
 class ThreadsController extends Controller
@@ -32,6 +33,12 @@ class ThreadsController extends Controller
     }
 
     public function show($channelId,Thread $thread){
+        // Record user visit this page
+        // Record timestamp as cache
+        // Caching
+        $key = sprintf("users.%s.visits.%s",\Auth::user()->id,$thread->id);
+        cache()->forever($key,Carbon::now());
+        
         return view('threads.show',[
             'thread' => $thread,
             'replies' => $thread->replies()->paginate(10)

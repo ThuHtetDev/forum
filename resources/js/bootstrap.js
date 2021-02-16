@@ -47,7 +47,7 @@ window.axios.defaults.headers.common = {
     'X-Requested-With' : 'XMLHttpRequest'
 }
 
-window.flash = function(message){
+window.flash = function(message,level = 'success'){
     //flash('this is message')
-    window.events.$emit('flash',message);
+    window.events.$emit('flash',{message,level});
 }; 

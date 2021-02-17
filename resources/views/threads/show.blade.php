@@ -1,6 +1,11 @@
 
 @extends('layouts.app')
 @section('content')
+
+@section('header-css')
+    <link href="{{ asset('css/atwho.css') }}" rel="stylesheet">
+@endsection
+
 <div class="container">
     <div class="row m-5">
         <div class="col-md-8">
@@ -23,7 +28,7 @@
                             @csrf 
                             <div class="form-group row">
                                 <div class="col-md-8">
-                                    <textarea name="reply" class="form-control" id="" rows="10" cols="60" placeholder="How Do You Think?.." required>{{ old('body') }}</textarea>
+                                    <textarea name="reply" class="form-control" id="replyBody" rows="10" cols="60" placeholder="How Do You Think?.." required>{{ old('body') }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -41,7 +46,6 @@
 
                 <!-- <new-reply></new-reply> -->
         </div>
-
         <div class="col-md-4 bg-default">
             <div class="list-group">
                 <span class="list-group-item list-group-item-action active">
@@ -70,4 +74,43 @@
 
    
 </div>
+
 @endsection
+    
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+<script>
+     
+      
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Your jquery code
+
+        $('#replyBody').atwho({
+        at: "@",
+        delay:750,
+        callbacks: {
+            remoteFilter: function(query, callback) {
+                $.getJSON("/users", {name: query}, function(data) {
+                    callback(data)
+                });
+            }
+        }
+        });
+
+       
+    });
+       
+   
+    
+
+                // $.ajax({
+                //     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                //     type: 'POST',
+                //     url: url,
+                //     data: {q:$('.search_mail').val()},
+                //     success:function(data){
+                    
+                //     }
+                // });
+</script>

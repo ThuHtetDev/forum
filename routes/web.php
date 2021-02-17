@@ -35,6 +35,9 @@ Route::get('profiles/{user}','ProfileController@show')->name('user.profile');
 Route::get('profiles/{user}/notifications','UserNotificationController@index')->name('notification.index');
 Route::delete('profiles/{user}/notifications/{notification}','UserNotificationController@destory')->name('notification.destory');
 
+
+Route::get('/users','UsersController@index');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

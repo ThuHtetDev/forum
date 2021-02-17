@@ -45,9 +45,11 @@ class Thread extends Model
     public function addReply($data){
         //! Create Reply from thread
         $reply = $this->replies()->create($data);
-
-        event(new ThreadReceivedReply($reply)); // Call Events+Listeners Methods
-
+        
+        //! Mentioned user notify
+        event(new ThreadReceivedReply($reply)); // Call Events+Listeners Methods 
+        
+        //! Subscribe user notify
         $this->notifySubcribers($reply); // Call Notify Subscribers
 
 

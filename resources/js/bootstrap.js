@@ -42,10 +42,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.events = new Vue(); // You can use now for window.events.$emit // $on
 
-window.axios.defaults.headers.common = {
-    'X-CSRF-TOKEN' : window.App.csrfToken,
-    'X-Requested-With' : 'XMLHttpRequest'
-}
+// window.axios.defaults.headers.common = {
+//     'X-CSRF-TOKEN' : window.App.csrfToken,
+//     'X-Requested-With' : 'XMLHttpRequest'
+// }
 
 window.flash = function(message,level = 'success'){
     //flash('this is message')

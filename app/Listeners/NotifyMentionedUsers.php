@@ -29,14 +29,17 @@ class NotifyMentionedUsers
     public function handle(ThreadReceivedReply $event)
     {
         // Find the @name withing body
-        preg_match_all('/\@([^\s\.]+)/',$event->reply->body,$matches);
-        // If found, cut only names 
+        $pattern = '/@([\w\-]+)/';
+        preg_match_all($pattern,$event->reply->body,$matches);
+        // If found, cut only names
         $names = $matches[1];
-        
+
         // Search in User
         collect($names)
         ->map(function($name){
-            return User::where('name',$name)->first();
+            return User::whereRaw("REPLACE(`name`, ' ' ,'') LIKE ?", ['%'.str_replace(' ', '', $name).'%'])
+                    ->first();
+            // return User::where('name',$name)->first();
         })
         ->filter()
         ->each(function ($user) use ($event){

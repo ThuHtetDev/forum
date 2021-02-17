@@ -21,7 +21,7 @@
 
                             <div class="col-md-6">
                                 <select name="channel_id" class="form-control" id="" required>
-                                    <option value="" disabled>Choose Channel ..</option>
+                                    <option value="" disabled selected>Choose Channel ..</option>
                                     @foreach($channels as $channel)
                                         <option value="{{$channel->id}}" {{old('channel_id') == $channel->id ? 'selected' : ''}}>{{$channel->name}}</option>
                                     @endforeach
@@ -30,18 +30,18 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="title" class="col-md-4 col-form-label text-md-right">Title</label>
+                            <!-- <label for="title" class="col-md-4 col-form-label text-md-right">Title</label> -->
 
-                            <div class="col-md-6">
-                                <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}" required autocomplete="false" autofocus>
+                            <div class="col-md-12">
+                                <input id="title" type="text" placeholder="Title Here.." class="form-control" name="title" value="{{ old('title') }}" required autocomplete="false" autofocus>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="body" class="col-md-4 col-form-label text-md-right">Description</label>
+                            <!-- <label for="body" class="col-md-4 col-form-label text-md-right">Description</label> -->
 
-                            <div class="col-md-6">
-                                <textarea name="body" class="form-control" id="" rows="10" >{{ old('body') }}</textarea>
+                            <div class="col-md-12">
+                                <textarea name="body" placeholder="Description Here.." class="form-control" id="" rows="10" >{{ old('body') }}</textarea>
                             </div>
                         </div>
 

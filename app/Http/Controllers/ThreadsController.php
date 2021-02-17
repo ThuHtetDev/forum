@@ -28,7 +28,7 @@ class ThreadsController extends Controller
             // $threads = $channel->threads()->latest();
             $threads->where('channel_id',$channel->id);
         }
-        $threads = $threads->get();
+        $threads = $threads->paginate(30);
         return $threads;
     }
 

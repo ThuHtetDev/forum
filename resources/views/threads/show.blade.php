@@ -14,7 +14,15 @@
                 <div class="card-body">
                     {{$thread->body}}
                 </div>
-                <div class="card-footer">Posted by <a href="{{route('user.profile',['user'=>$thread->creator->name])}}">{{$thread->creator->name}}</a> </div>
+                <div class="card-footer">
+                    <a href="{{route('user.profile',['user'=>$thread->creator->name])}}">
+                        
+                        @if($thread->creator->avatar_path)
+                            <img src="{{$thread->creator->avatar_path}}" alt="" class="ml-2" style="width:30px; height:30px; border-radius:50%;">
+                        @endif
+                        {{$thread->creator->name}} 
+                    </a> Posted This
+                </div>
             </div>
                 <ul class="m-5">
                     @foreach($replies as $reply)

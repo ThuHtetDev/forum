@@ -35,8 +35,10 @@ Route::get('profiles/{user}','ProfileController@show')->name('user.profile');
 Route::get('profiles/{user}/notifications','UserNotificationController@index')->name('notification.index');
 Route::delete('profiles/{user}/notifications/{notification}','UserNotificationController@destory')->name('notification.destory');
 
-
-Route::get('/users','UsersController@index');
+Route::group(['middleware'=>'auth'],function(){ 
+    Route::get('/users','UsersController@index');
+    Route::post('profiles/{user}/avator','UsersController@storeAvator')->name('user.avatar');
+});
 
 Auth::routes();
 

@@ -5,6 +5,7 @@ namespace App;
 use App\User;
 use App\Thread;
 use App\Favorite;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
@@ -54,4 +55,8 @@ class Reply extends Model
         $this->favorites()->create(['user_id' => \Auth::user()->id]);
         return true;
     }
+
+    // public function wasJustPublished(){
+    //     return $this->created_at->gt(Carbon::now()->subMinute());
+    // }
 }

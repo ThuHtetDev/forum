@@ -2,23 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Reply;
 use App\Thread;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\YouWereMentioned;
 
 class RepliesController extends Controller
 {
     public function store($channelId,Thread $thread){
-   
+        
         $this->validate(request(),[
             'reply' => 'required'
         ]);
-       
-        $thread->addReply([
-            'body' => request('reply'),
-            'user_id' => Auth::user()->id
-        ]);
+            
+        $reply = $thread->addReply([
+                    'body' => request('reply'),
+                    'user_id' => Auth::user()->id
+                ]);
 
         if(request()->expectsJson()){
             return response()->json('success',201);

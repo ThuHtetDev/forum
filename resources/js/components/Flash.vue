@@ -23,7 +23,6 @@
                 };
                 this.flash(data);
             }
-        
 
             window.events.$on('flash', data => {
                 this.flash(data);

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Reply;
 use App\Thread;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -48,5 +49,10 @@ class User extends Authenticatable
 
     // public function visitUserCacheKey($thread){
     //     return sprintf("users.%s.visits.%s",\Auth::user()->id,$thread->id);
+    // }
+
+    // public function lastReply()
+    // {
+    //     return $this->hasOne(Reply::class)->latest();
     // }
 }

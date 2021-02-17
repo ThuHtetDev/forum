@@ -12,9 +12,8 @@
                     <li v-for="notification in notifications" :key="notification.id">
                         <a class="dropdown-item"  
                         :href="notification.data.link" 
-                        v-text="notification.data.reply_owner +' replies to ' +notification.data.thread_title"
+                        v-text="notification.data.message"
                         @click="markAsRead(notification)">
-                        
                         </a>
                         <hr>
                     </li>

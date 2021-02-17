@@ -36,8 +36,11 @@ class ThreadsController extends Controller
         // Record user visit this page
         // Record timestamp as cache
         // Caching
-        $key = sprintf("users.%s.visits.%s",\Auth::user()->id,$thread->id);
-        cache()->forever($key,Carbon::now());
+        if(\Auth::check()){
+            $key = sprintf("users.%s.visits.%s",\Auth::user()->id,$thread->id);
+            cache()->forever($key,Carbon::now());
+        }
+   
         
         return view('threads.show',[
             'thread' => $thread,

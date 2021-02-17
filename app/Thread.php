@@ -5,6 +5,7 @@ namespace App;
 use App\User;
 use App\Reply;
 use App\Channel;
+use App\Events\ThreadReceivedReply;
 use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
@@ -45,6 +46,15 @@ class Thread extends Model
         //! Create Reply from thread
         $reply = $this->replies()->create($data);
 
+        event(new ThreadReceivedReply($reply)); // Call Events+Listeners Methods
+
+        $this->notifySubcribers($reply); // Call Notify Subscribers
+
+
+        return $reply;
+    }
+
+    public function notifySubcribers($reply){
         //! If Reply cames to thread, Send/Create Notifications to that thread's subscribers
         $this->subscriptions->filter(function ($sub) use ($reply){
             // reply user cannot be auth user
@@ -64,8 +74,6 @@ class Thread extends Model
         //         $subscription->user->notify(new ThreadWasUpdated($this,$reply));
         //     }
         // }
-
-        return $reply;
     }
 
     public function channel(){

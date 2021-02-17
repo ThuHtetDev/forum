@@ -23,4 +23,8 @@ class ReplyPolicy
     public function updateReplyPermission(User $user ,Reply $reply){
         return $reply->user_id == $user->id;
     }
+
+    // public function create(User $user){
+    //     return !! $user->lastReply->wasJustPublished();
+    // }
 }

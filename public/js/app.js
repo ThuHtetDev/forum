@@ -2277,7 +2277,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -60449,13 +60448,7 @@ var render = function() {
               _c("a", {
                 staticClass: "dropdown-item",
                 attrs: { href: notification.data.link },
-                domProps: {
-                  textContent: _vm._s(
-                    notification.data.reply_owner +
-                      " replies to " +
-                      notification.data.thread_title
-                  )
-                },
+                domProps: { textContent: _vm._s(notification.data.message) },
                 on: {
                   click: function($event) {
                     return _vm.markAsRead(notification)

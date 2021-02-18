@@ -92,6 +92,7 @@
                             <user-notification></user-notification>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <img src="{{\Auth::user()->avatar()}}" alt="" class="ml-2" style="width:25px; height:25px; border-radius:50%;">
                                     {{ Auth::user()->name }}
                                 </a>
 

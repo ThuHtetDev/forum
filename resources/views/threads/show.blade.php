@@ -10,16 +10,15 @@
     <div class="row m-5">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{$thread->title}}</div>
+                <div class="card-header " style="font-size: 30px;">{{$thread->title}}</div>
                 <div class="card-body">
                     {{$thread->body}}
                 </div>
                 <div class="card-footer">
                     <a href="{{route('user.profile',['user'=>$thread->creator->name])}}">
                         
-                        @if($thread->creator->avatar_path)
-                            <img src="{{$thread->creator->avatar_path}}" alt="" class="ml-2" style="width:30px; height:30px; border-radius:50%;">
-                        @endif
+                        <img src="{{$thread->creator->avatar()}}" alt="" class="ml-2" style="width:30px; height:30px; border-radius:50%;">
+                      
                         {{$thread->creator->name}} 
                     </a> Posted This
                 </div>

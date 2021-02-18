@@ -2,27 +2,8 @@
 @section('content')
    
     <div class="container">
-        <div class="jumbotron" style="display:flex;">
-        <div style="flex:1;">
-                <h1 class="display-4">{{$user->name}}</h1>
-                <p class="lead">
-                    Member Since {{$user->created_at->diffForHumans()}}
-                </p>
-                @can('updateProfilePermission',$user)
-                    <form action="{{route('user.avatar',['user'=>$user->id]) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <input type="file" name="avatar">
-                        <button type="submit" class="btn btn-primary">Upload</button>
-                    </form>
-                @endCan
-        </div>
-        @if($user->avatar_path)
-            <div>
-                <img src="{{$user->avatar_path}}" alt="" style="width:200px; height:200px; border-radius:50%;">
-            </div>    
-        @endif
-
-            
+        <div class="jumbotron" >
+            <avatar-form :user="{{$user}}"></avatar-form>
         </div>
         <div class="row">
         <div class="col-md-8" >

@@ -47,6 +47,10 @@ class User extends Authenticatable
         return $this->hasMany(Thread::class);
     }
 
+    public function avatar(){
+        return $this->avatar_path ?: '/storage/avatars/default_avatar.png';
+    }
+
     // public function visitUserCacheKey($thread){
     //     return sprintf("users.%s.visits.%s",\Auth::user()->id,$thread->id);
     // }

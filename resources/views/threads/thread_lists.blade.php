@@ -23,6 +23,7 @@
                             <span>
                             Posted by
                                 <a href="/profiles/{{$thread->creator->name}}">
+                                <img src="{{$thread->creator->avatar()}}" alt="" class="ml-1 mr-1" style="width:30px; height:30px; border-radius:50%;">
                                     {{$thread->creator->name}}
                                 </a>
                             </span>

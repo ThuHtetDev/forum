@@ -38,12 +38,16 @@ class UsersController extends Controller
         $current_timestamp = Carbon::now()->timestamp;
         $file_name = $current_timestamp . "_" . $file->getClientOriginalName();
         $extension = $file->extension();
-        $file->storeAs('/public/avatars/', $file_name. "." .$extension);
-        $file_url = Storage::url("avatars/" .$file_name. "." .$extension);
+        $file->storeAs('/public/avatars/', $file_name);
+        $file_url = Storage::url("avatars/" .$file_name);
 
         Auth::user()->update([
             'avatar_path' => $file_url
         ]);
+
+        if(request()->expectsJson()){
+            return response()->json('success',204);
+        }
 
         return back()->with('flash','Your Profile Image Uploaded');
     }

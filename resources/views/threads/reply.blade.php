@@ -2,9 +2,9 @@
     <li id="reply-{{$reply->id}}">
         <p>
             <a href="{{route('user.profile',['user'=>$reply->owner->name])}}">
-                @if($reply->owner->avatar_path)
-                    <img src="{{$reply->owner->avatar_path}}" alt="" class="mr-2" style="width:50px; height:50px; border-radius:50%;">
-                @endif
+          
+                <img src="{{$reply->owner->avatar()}}" alt="" class="mr-2" style="width:50px; height:50px; border-radius:50%;">
+       
                 {{$reply->owner->name}}
             </a> said: <span v-text="ago"></span>..
          </p>

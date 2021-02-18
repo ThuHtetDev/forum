@@ -11,15 +11,17 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Create Thread</div>
+                <div class="card-header">
+                    What's on my mind? create it..
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('thread.store') }}">
                         @csrf
                         <div class="form-group row">
-                            <label for="channel" class="col-md-4 col-form-label text-md-right">Choose Channel</label>
+                            <!-- <label for="channel" class="col-md-4 col-form-label text-md-right">Choose Channel</label> -->
 
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <select name="channel_id" class="form-control" id="" required>
                                     <option value="" disabled selected>Choose Channel ..</option>
                                     @foreach($channels as $channel)

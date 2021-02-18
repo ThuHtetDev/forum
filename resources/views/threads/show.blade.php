@@ -59,8 +59,10 @@
                     Thread Info
                 </span>
                 <span class="list-group-item list-group-item-action"> Published By <a href="{{route('user.profile',['user'=>$thread->creator->name])}}">{{$thread->creator->name}}</a></span>
-                <span class="list-group-item list-group-item-action"> Published at {{$thread->created_at->diffForHumans()}}</span>
+                <span class="list-group-item list-group-item-action"> Published at {{\Carbon\Carbon::parse($thread->created_at)->diffForHumans()}}</span>
                 <span class="list-group-item list-group-item-action"> {{$thread->replies->count()}} {{ \Str::plural('reply',$thread->replies->count()) }} to this thread</span>
+                <span class="list-group-item list-group-item-action"> {{$thread->count_view}} times clicking to this thread</span>
+                
                 @if(\Auth::check())
                     <span class="list-group-item list-group-item-action"> 
                         <subscribe-button :active="{{json_encode($thread->isSubscribedTo)}}"></subscribe-button>

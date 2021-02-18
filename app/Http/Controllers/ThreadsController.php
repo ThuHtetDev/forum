@@ -40,8 +40,17 @@ class ThreadsController extends Controller
             $key = sprintf("users.%s.visits.%s",\Auth::user()->id,$thread->id);
             cache()->forever($key,Carbon::now());
         }
-   
-        
+
+        // $thread->increment('count_view');
+        // $thread->timestamps = false;
+        // $thread->save();
+        // $thread->timestamps = true;
+        $thread->timestamps = false;
+        $thread->increment('count_view');
+        $thread->save();
+
+        // dd($thread->created_at);
+
         return view('threads.show',[
             'thread' => $thread,
             'replies' => $thread->replies()->paginate(10)

@@ -49,8 +49,6 @@ class ThreadsController extends Controller
         $thread->increment('count_view');
         $thread->save();
 
-        // dd($thread->created_at);
-
         return view('threads.show',[
             'thread' => $thread,
             'replies' => $thread->replies()->paginate(10)
@@ -72,7 +70,8 @@ class ThreadsController extends Controller
            'user_id' => Auth::user()->id,
            'channel_id' => $request->channel_id,
            'title' => $request->title,
-           'body' => $request->body
+           'body' => $request->body,
+           'slug' => $request->title, // Slug has mutator in Thread.php (change to Unique Title)
        ]);
 
        return redirect($thread->path())

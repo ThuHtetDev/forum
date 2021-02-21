@@ -21,6 +21,7 @@ class CreateThreadsTable extends Migration
             // $table->foreign('channel_id')->references('id')->on('channels')->onDelete('cascade');
             $table->string('title');
             $table->text('body');
+            $table->string('slug')->unique();
             $table->integer('count_view')->default('0');
             $table->timestamps();
         });

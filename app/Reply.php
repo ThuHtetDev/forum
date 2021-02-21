@@ -14,7 +14,7 @@ class Reply extends Model
 
     protected $with = ['owner','favorites'];
 
-    protected $appends = ['isFavorited'];
+    protected $appends = ['isFavorited','isBest'];
     
     public function thread(){
         return $this->belongsTo(Thread::class);
@@ -54,6 +54,14 @@ class Reply extends Model
 
         $this->favorites()->create(['user_id' => \Auth::user()->id]);
         return true;
+    }
+
+    public function isBest(){
+        return $this->thread->best_reply_id == $this->id;
+    }
+    // Get Mutators
+    public function getIsBestAttribute(){
+        return $this->isBest();
     }
 
     // public function wasJustPublished(){

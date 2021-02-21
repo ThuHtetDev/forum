@@ -40,6 +40,7 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('profiles/{user}/avator','UsersController@storeAvator')->name('user.avatar');
 
     Route::post('/replies/{reply}/best-reply','BestReplyController@store')->name('reply.best');
+    Route::post('/replies/{reply}/remove-best-reply','BestReplyController@destroy')->name('reply.delete');
 });
 
 Auth::routes();

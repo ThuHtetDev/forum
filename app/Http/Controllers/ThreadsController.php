@@ -48,7 +48,6 @@ class ThreadsController extends Controller
         $thread->timestamps = false;
         $thread->increment('count_view');
         $thread->save();
-
         return view('threads.show',[
             'thread' => $thread,
             'replies' => $thread->replies()->paginate(10)

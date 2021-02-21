@@ -108,7 +108,10 @@ class Thread extends Model
     }
 
     public function getIsSubscribedToAttribute(){
-        return $this->subscriptions()->where('user_id',\Auth::user()->id)->exists();
+        if(\Auth::check()){
+            return $this->subscriptions()->where('user_id',\Auth::user()->id)->exists();
+        }
+        return false;
     }
 
     public function hasVisitedFor(){
@@ -124,6 +127,11 @@ class Thread extends Model
     // Mark as Best Reply to Thread
     public function makeBestRely(Reply $reply){
         $this->update(['best_reply_id' => $reply->id]);
+    }
+
+    public function CancelBestRely(Reply $reply){
+        $this->best_reply_id = null;
+        $this->update();
     }
 
 }

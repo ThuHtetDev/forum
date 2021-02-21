@@ -49,6 +49,19 @@ Vue.prototype.authorize = function (handler){
     return user ? handler(user) : false;
 }
 
+let authorizations = require('./authorization');
+
+Vue.prototype.authorization = function (...params){
+    if(! window.App.signIn) return false;
+    if(typeof params[0] == 'string'){
+        return authorizations[params[0]](params[1]); // Eg: authorizations['updateReply'](reply)
+    }
+
+    return params[0](window.App.user);
+}
+
+Vue.prototype.signIn = window.App.signIn;
+
 // window.axios.defaults.headers.common = {
 //     'X-CSRF-TOKEN' : window.App.csrfToken,
 //     'X-Requested-With' : 'XMLHttpRequest'

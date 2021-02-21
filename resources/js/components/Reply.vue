@@ -1,13 +1,28 @@
 <template>
-        <li :id="'reply-'+id">
-        <p>
-            <a :href="'/profiles/'+reply.owner.name" >
+        <li :id="'reply-'+id" :class="hasBest ? 'best' : ''">
+        <div style="display:flex">
+            <div style="flex:1;">
+                    <a :href="'/profiles/'+reply.owner.name" >
+                        <img :src="avatar" alt="" class="mr-2" style="width:50px; height:50px; border-radius:50%;">
+                        <span v-text="reply.owner.name"></span>
+                    </a> said: <span v-text="ago"></span>..
+            </div>
+            <div v-if="authorization('markBestReply',reply)">
+                <div v-if="!hasBest">
+                    <button class="btn btn-secondary btn-sm mt-2" @click="markAsBest">Mark As Best Reply</button>
+                </div>
+                <div v-else>
+                    <i class="fas fa-check-circle fa-3x"  style="color:#18BC9C"></i>
+                    <button class="btn btn-sm btn-default text-danger" @click="cancelBest">Cancel</button>
+                </div>
+            </div>
+            <div v-else>
+                <div v-if="hasBest">
+                    <i class="fas fa-check-circle fa-3x"  style="color:#18BC9C"></i>
+                </div>
+            </div>
           
-                <img :src="avatar" alt="" class="mr-2" style="width:50px; height:50px; border-radius:50%;">
-                <span v-text="reply.owner.name"></span>
-       
-            </a> said: <span v-text="ago"></span>..
-         </p>
+         </div>
         <div class="mb-2">
             <div v-if="editing">
                 <div class="form-group">
@@ -18,7 +33,7 @@
                 </button>
                 <button class="btn btn-link" @click="cancel()">Cancel</button>
             </div>
-            <div v-else v-text="body"> </div>
+            <div v-else v-text="body" class="m-3"> </div>
         </div>
         <div style="display:flex;">
         
@@ -27,7 +42,7 @@
                 </div>
        
 
-                <div v-if="canUpdate">
+                <div v-if="authorization('updateReply',reply)">
                     <button class="btn btn-info btn-sm mr-4" @click="editing = true">Edit This Reply</button>
                     <button class="btn btn-danger btn-sm" @click="deleteReply()">
                             Delete This Reply
@@ -51,19 +66,32 @@
                 editing: false,
                 body: this.$props.reply.body,
                 id: this.reply.id,
-                avatar: this.reply.owner.avatar_path ? this.reply.owner.avatar_path : '/storage/avatars/default_avatar.png'
+                avatar: this.reply.owner.avatar_path ? this.reply.owner.avatar_path : '/storage/avatars/default_avatar.png',
+                hasBest: this.$props.reply.isBest
             }
         },
         computed:{
             ago(){
                 return moment(this.$props.reply.created_at).fromNow();
             },
-            signIn(){
-                return window.App.signIn;
-            },
-            canUpdate(){
-                 return this.authorize(user => user.id == this.reply.user_id);
-            }
+      
+        },
+        created(){
+            window.events.$on('mark-this-best', id =>{
+                if(id == this.reply.id){
+                    this.hasBest = true;
+                }else{
+                    this.hasBest = false;
+                }
+            });
+
+             window.events.$on('cancel-this-best', id =>{
+                if(id == this.reply.id){
+                    this.hasBest = false;
+                }
+            });
+
+            
         },
         methods:{
             update(){
@@ -85,9 +113,24 @@
             },
             deleteReply(){
                 axios.delete('/replies/'+this.$props.reply.id);
-
                 this.$emit('deleted',this.reply.id);
+            },
+            markAsBest(){
+                axios.post('/replies/'+this.$props.reply.id+'/best-reply');
+                flash('Your found best reply','success');
+                window.events.$emit('mark-this-best',this.reply.id);
+            },
+            cancelBest(){
+                axios.post('/replies/'+this.$props.reply.id+'/remove-best-reply');
+                flash('Your just deleted best reply','success');
+                window.events.$emit('cancel-this-best',this.reply.id);
             }
         }
     }
 </script>
+
+<style scoped>
+.best{
+ 
+}
+</style>

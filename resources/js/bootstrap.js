@@ -44,6 +44,8 @@ window.events = new Vue(); // You can use now for window.events.$emit // $on
 
 Vue.prototype.authorize = function (handler){
     let user = window.App.user;
+    // if(! user) return false;
+    // return handler(user);
     return user ? handler(user) : false;
 }
 

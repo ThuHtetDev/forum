@@ -24,12 +24,13 @@ require('jquery.caret');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('flash-component', require('./components/Flash.vue').default);
-Vue.component('reply', require('./components/Reply.vue').default);
+// Vue.component('reply', require('./components/Reply.vue').default);
 Vue.component('favorite', require('./components/Favorite.vue').default);
-Vue.component('new-reply', require('./components/NewReply.vue').default);
+// Vue.component('new-reply', require('./components/NewReply.vue').default);
 Vue.component('subscribe-button', require('./components/SubscribeButton.vue').default);
 Vue.component('user-notification', require('./components/UserNotification.vue').default);
 Vue.component('avatar-form', require('./components/AvatarForm.vue').default);
+Vue.component('thread-view', require('./components/ThreadView.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

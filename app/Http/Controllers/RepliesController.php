@@ -13,15 +13,15 @@ class RepliesController extends Controller
 {
     public function store($channelId,Thread $thread){
         $this->validate(request(),[
-            'reply' => 'required'
+            'body' => 'required'
         ]);
         $reply = $thread->addReply([
-                    'body' => request('reply'),
+                    'body' => request('body'),
                     'user_id' => Auth::user()->id
                 ]);
 
         if(request()->expectsJson()){
-            return response()->json('success',201);
+            return response()->json($reply->load('owner'),201);
         }
 
         return back()->with('flash','Your Reply has been posted');

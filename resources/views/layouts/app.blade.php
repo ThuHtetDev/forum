@@ -59,26 +59,23 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                        <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Threads
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ url('/threads') }}">
-                                        All Threads
-                                    </a>
-                                    @if(Auth::check())
-                                        <a class="dropdown-item" href="{{ url('/threads/?by='.\Auth::user()->name) }}">
-                                           My Threads
-                                        </a>
-                                    @endif
-                                </div>
-                        </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('thread.create') }}">
-                                New Thread
+                            <a class="nav-link" href="{{ url('/threads') }}">
+                                Threads
                             </a>
                         </li>
+                        @if(Auth::check())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/threads/?by='.\Auth::user()->name) }}">
+                                    My Threads
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('thread.create') }}">
+                                    New Thread
+                                </a>
+                            </li>
+                        @endif
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>

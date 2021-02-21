@@ -121,4 +121,9 @@ class Thread extends Model
         $this->attributes['slug'] = \Str::slug($value).'-'.Carbon::now()->timestamp;
     }
 
+    // Mark as Best Reply to Thread
+    public function makeBestRely(Reply $reply){
+        $this->update(['best_reply_id' => $reply->id]);
+    }
+
 }

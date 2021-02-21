@@ -11,7 +11,7 @@
         props:['reply'],
         data:function(){
             return {
-                favCount: this.$props.reply.favorites_count,
+                favCount: this.$props.reply.favorites_count == undefined ? 0 : this.$props.reply.favorites_count,
                 isFavorited: this.$props.reply.isFavorited
             }
         },

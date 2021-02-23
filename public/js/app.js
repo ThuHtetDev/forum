@@ -3614,6 +3614,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3747,7 +3749,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      repliesCount: this.initialReplyCount
+      repliesCount: this.initialReplyCount,
+      editingThread: false
     };
   }
 });
@@ -3787,16 +3790,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      notifications: []
+      notifications: [],
+      countNoti: ''
     };
   },
+  mounted: function mounted() {},
   created: function created() {
     var self = this;
     axios.get('/profiles/' + window.App.user.name + '/notifications').then(function (response) {
       self.notifications = response.data;
+      self.countNoti = self.notifications.length;
+      document.querySelector('.spanText').textContent = self.countNoti;
     });
   },
   methods: {
@@ -62631,7 +62639,7 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-primary",
+                  staticClass: "btn btn-primary btn-sm",
                   on: {
                     click: function($event) {
                       return _vm.update()
@@ -62644,7 +62652,7 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-link",
+                  staticClass: "btn btn-link btn-sm",
                   on: {
                     click: function($event) {
                       return _vm.cancel()
@@ -62682,7 +62690,12 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("Edit This Reply")]
+                [
+                  _c("i", {
+                    staticClass: "fas fa-edit",
+                    staticStyle: { color: "#fff" }
+                  })
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -62695,11 +62708,7 @@ var render = function() {
                     }
                   }
                 },
-                [
-                  _vm._v(
-                    "\n                        Delete This Reply\n                "
-                  )
-                ]
+                [_c("i", { staticClass: "fas fa-trash" })]
               )
             ])
           : _vm._e()
@@ -62840,7 +62849,11 @@ var staticRenderFns = [
             "aria-hidden": "true"
           }
         }),
-        _vm._v(" Notifications\n              ")
+        _vm._v(" Notifications\n                  "),
+        _c("span", {
+          pre: true,
+          attrs: { class: "badge badge-danger rounded-pill spanText" }
+        })
       ]
     )
   }

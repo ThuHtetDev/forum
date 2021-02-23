@@ -20,6 +20,8 @@ Route::get('/', function () {
 Route::get('/threads/create', 'ThreadsController@create')->name('thread.create');
 Route::get('/threads/{channel?}', 'ThreadsController@index');
 Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
+Route::get('/threads/{channel}/{thread}/edit', 'ThreadsController@edit')->name('thread.edit');
+Route::post('/threads/{thread}/update', 'ThreadsController@update')->name('thread.update');
 Route::post('/threads/{channel}/{thread}/replies', 'RepliesController@store');
 Route::post('/threads', 'ThreadsController@store')->name('thread.store');
 Route::delete('/threads/{thread}', 'ThreadsController@destroy')->name('thread.destroy');

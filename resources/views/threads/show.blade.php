@@ -10,7 +10,7 @@
         <div class="row m-5">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header " style="font-size: 30px;">{{$thread->title}}</div>
+                    <div class="card-header" style="font-size: 30px;">{{$thread->title}}</div>
                     <div class="card-body">
                         {{$thread->body}}
                     </div>
@@ -20,7 +20,7 @@
                             <img src="{{$thread->creator->avatar()}}" alt="" class="ml-2" style="width:30px; height:30px; border-radius:50%;">
                         
                             {{$thread->creator->name}} 
-                        </a> Posted This
+                        </a> Posted This Thread
                     </div>
                 </div>
                     <ul class="m-5">
@@ -50,8 +50,14 @@
                             <form action="{{route('thread.destroy',['thread'=> $thread])}}" method="post">
                                 @csrf 
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-link">Delete This Thread</button>
+                                <button type="submit" class="btn btn-link text-danger">Delete This Thread</button>
                             </form>
+                        </span>
+                        <span class="list-group-item list-group-item-action"> 
+                            <a href="{{$thread->path() . '/edit'}}">
+                                <button type="submit" class="btn btn-link text-danger">Edit This Thread</button>
+                            </a>
+                            
                         </span>
                     @endcan
                 </div>

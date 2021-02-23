@@ -13,7 +13,7 @@ class ProfileController extends Controller
        // But change to RouteKeyName in User.php => as name
        return view('profiles.show',[
            'user' => $user,
-           'threads' => $user->threads()->paginate(20)
+           'threads' => $user->threads()->orderBy('created_at','desc')->paginate(20)
        ]);
    }
 }

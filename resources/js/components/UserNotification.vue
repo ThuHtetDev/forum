@@ -3,6 +3,7 @@
             
                     <a id="navbarDropdown"  class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         <i class="fa fa-bell"   style="color:#3490DC" aria-hidden="true"></i> Notifications
+                        <span class="badge badge-danger rounded-pill spanText" ></span>
                     </a>
           
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" v-if="notifications.length <= 0">
@@ -26,15 +27,22 @@
     export default {
         data(){
             return{
-                notifications: []
+                notifications: [],
+                countNoti: ''
             }
+        },
+        mounted(){
+   
         },
         created(){
             let self = this;
             axios.get('/profiles/'+window.App.user.name+'/notifications')
             .then(response => {
                 self.notifications = response.data;
+                self.countNoti = self.notifications.length;
+                document.querySelector('.spanText').textContent = self.countNoti;
             })
+          
         },
         methods:{
             markAsRead(notification){

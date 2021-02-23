@@ -7,7 +7,8 @@
         },
        data(){
            return {
-               repliesCount: this.initialReplyCount
+               repliesCount: this.initialReplyCount,
+               editingThread: false
            }
        }
     }

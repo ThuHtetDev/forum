@@ -132,6 +132,7 @@ class Thread extends Model
     public function CancelBestRely(Reply $reply){
         $this->best_reply_id = null;
         $this->update();
+        return ;
     }
 
 }

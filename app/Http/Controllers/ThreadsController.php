@@ -59,21 +59,19 @@ class ThreadsController extends Controller
     }
 
     public function store(Request $request){
-        $this->validate($request,[
-            'title' => 'required',
-            'body' => 'required',
-            'channel_id' => 'required|exists:channels,id'
+        $this->validated($request);
+
+        $thread = Thread::create([
+            'user_id' => Auth::user()->id,
+            'channel_id' => $request->channel_id,
+            'title' => $request->title,
+            'body' => $request->body,
+            'slug' => $request->title, // Slug has mutator in Thread.php (change to Unique Title)
         ]);
 
-       $thread = Thread::create([
-           'user_id' => Auth::user()->id,
-           'channel_id' => $request->channel_id,
-           'title' => $request->title,
-           'body' => $request->body,
-           'slug' => $request->title, // Slug has mutator in Thread.php (change to Unique Title)
-       ]);
+        $thread->subscribed();
 
-       return redirect($thread->path())
+        return redirect($thread->path())
                 ->with('flash','New thread has been created');
     }
 
@@ -82,6 +80,34 @@ class ThreadsController extends Controller
         $thread->replies()->delete();
         $thread->delete();
         return redirect('/threads');
+    }
+
+    public function edit($channelId,Thread $thread){
+        return view('threads.edit',[
+            'thread'  => $thread
+        ]);
+    }
+
+    public function update(Thread $thread,Request $request){
+        $this->validated($request);
+
+        $thread->update([
+            'channel_id' => $request->channel_id,
+            'title' => $request->title,
+            'body' => $request->body,
+            'slug' => $request->title, // Slug has mutator in Thread.php (change to Unique Title)
+        ]);
+
+        return redirect($thread->path())
+                ->with('flash','Thread has been edited');
+    }
+
+    private function validated($data){
+        $this->validate($data,[
+            'title' => 'required',
+            'body' => 'required',
+            'channel_id' => 'required|exists:channels,id'
+        ]);
     }
 
 

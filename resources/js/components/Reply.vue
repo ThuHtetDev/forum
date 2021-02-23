@@ -28,10 +28,10 @@
                 <div class="form-group">
                     <textarea name="" class="form-control" v-model="body" id="" cols="60" rows="5"></textarea>
                 </div>
-                <button class="btn btn-primary" @click="update()">
+                <button class="btn btn-primary btn-sm" @click="update()">
                     Update
                 </button>
-                <button class="btn btn-link" @click="cancel()">Cancel</button>
+                <button class="btn btn-link btn-sm" @click="cancel()">Cancel</button>
             </div>
             <div v-else v-text="body" class="m-3"> </div>
         </div>
@@ -43,9 +43,11 @@
        
 
                 <div v-if="authorization('updateReply',reply)">
-                    <button class="btn btn-info btn-sm mr-4" @click="editing = true">Edit This Reply</button>
+                    <button class="btn btn-info btn-sm mr-4" @click="editing = true">
+                        <i class="fas fa-edit" style="color:#fff"></i>
+                    </button>
                     <button class="btn btn-danger btn-sm" @click="deleteReply()">
-                            Delete This Reply
+                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
       

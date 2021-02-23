@@ -29,6 +29,9 @@ class RepliesController extends Controller
 
     public function destory(Reply $reply){
         $this->authorize('updateReplyPermission',$reply);
+        if($reply->thread->best_reply_id == $reply->id){
+            $reply->thread->CancelBestRely($reply);
+        }
         $reply->delete();
         if(request()->expectsJson()){
             return response()->json('success',200);
